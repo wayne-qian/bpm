@@ -154,14 +154,15 @@ scaleList.forEach(v => {
 
 export class Audio {
     private ctx: AudioContext
-    private dest: GainNode
+    private master: GainNode
 
     constructor() {
         this.ctx = new AudioContext()
         const comp = this.ctx.createDynamicsCompressor()
         comp.connect(this.ctx.destination)
-        this.dest = this.ctx.createGain()
-        this.dest.connect(comp)
+        this.master = this.ctx.createGain()
+        this.master.connect(comp)
+        this.master.gain.value = 0.7       
     }
 
     get currentTime() {
@@ -170,7 +171,7 @@ export class Audio {
 
     play(note: string, gainVal: number, when: number, duration: number) {
         const gain = this.ctx.createGain()
-        gain.connect(this.dest)
+        gain.connect(this.master)
         gain.gain.value = gainVal
 
         const play = noteMap.get(note.toLowerCase())
@@ -182,12 +183,12 @@ export class Audio {
     }
 
     mute(when: number, duration: number) {
-        this.dest.gain.setValueAtTime(0, when)
-        this.dest.gain.setValueAtTime(1, when + duration)
+        this.master.gain.setValueAtTime(0, when)
+        this.master.gain.setValueAtTime(0.7, when + duration)
     }
 
     close() {
-        this.dest.disconnect()
+        this.master.disconnect()
         this.ctx.close()
     }
 }

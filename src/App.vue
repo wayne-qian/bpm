@@ -46,25 +46,23 @@ function tempo(delta: number) {
             ♪ BPM
         </div>
         <div class="card-body d-flex flex-column align-items-center">
-            <div>
-                <button class="btn ">Rock & roll</button>
-            </div>
-            <div>
-                <div class="d-inline-block mt-2" v-for="(_, i) in beats" :key="i">
-                    {{ i + 1 }}
-                    <br>
-                    <button class="btn btn-secondary mx-1 py-3 px-2" style="transition: none;"
-                        :class="i === curBeat ? 'bg-success' : 'bg-dark'" @click="beats[i].mute = !beats[i].mute">
-                        <i class="bi bi-volume-mute-fill" :class="beats[i].mute ? '' : 'invisible'"></i>
-                    </button>
-                </div>
-
-            </div>
             <div class="my-auto">
-                <div class="text-secondary" style="font-size: 0.8em;">bpm</div>
-                <div class="fw-lighter" style="font-size:6em;line-height: 1em;">{{ cfg.bpm }}</div>
+                <div class="fw-lighter mb-4" style="font-size:6em;line-height: 1em;">{{ cfg.bpm }}</div>
+                <div>
+                    <button class="btn">Straight Rock</button>
+                </div>
+                <div>
+                    <div class="d-inline-block mt-2" v-for="(_, i) in beats" :key="i">
+                        {{ i + 1 }}
+                        <br>
+                        <button class="btn btn-secondary mx-1 py-3 px-2" style="transition: none;"
+                            :class="i === curBeat ? 'bg-success' : 'bg-dark'" @click="beats[i].mute = !beats[i].mute">
+                            <i class="bi bi-volume-mute-fill" :class="beats[i].mute ? '' : 'invisible'"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="btn-group">
+            <div class="btn-group mt-4">
                 <button class="btn btn-secondary" @click="tempo(-10)">-10</button>
                 <button class="btn btn-secondary" @click="tempo(-5)">-5</button>
                 <button class="btn btn-secondary" @click="tempo(-1)">-1</button>
