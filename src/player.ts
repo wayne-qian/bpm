@@ -20,7 +20,7 @@ function parseBeat(beatStr: string) {
     const notes = beatStr.split(/\s+/).filter(note => note)
     const timing = 1 / notes.length
     return notes.map<Note>((note, i) => {
-        let gain = 0.7
+        let gain = 1
         let accent = prefixLen(note, '!')
         if (accent > 0) {
             gain *= (accent + 1)
