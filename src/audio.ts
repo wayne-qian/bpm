@@ -153,34 +153,28 @@ scaleList.forEach(v => {
 })
 
 const masterGainValue = 0.7
-const getCtx = (() => {
-    let ctx: AudioContext
-    return () => {
-        if (!ctx) ctx = new AudioContext()
-        return ctx
-    }
-})()
 
 export class Audio {
+    private ctx: AudioContext
     private master: GainNode
     private compressor: DynamicsCompressorNode
 
     constructor() {
-        const ctx = getCtx()
-        this.master = ctx.createGain()
-        this.master.connect(ctx.destination)
+        this.ctx = new AudioContext()
+        this.master = this.ctx.createGain()
+        this.master.connect(this.ctx.destination)
         this.master.gain.value = masterGainValue
 
-        this.compressor = ctx.createDynamicsCompressor()
+        this.compressor = this.ctx.createDynamicsCompressor()
         this.compressor.connect(this.master)
     }
 
     get currentTime() {
-        return getCtx().currentTime
+        return this.ctx.currentTime
     }
 
     play(note: string, gainVal: number, when: number, duration: number) {
-        const gain = getCtx().createGain()
+        const gain = this.ctx.createGain()
         gain.connect(this.compressor)
         gain.gain.value = gainVal
 

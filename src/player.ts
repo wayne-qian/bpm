@@ -152,6 +152,6 @@ export function play(beats: Beat[], onBeat: (index: number) => void) {
         },
         tempo(newBpm: number) {
             bpm = newBpm
-        }
+        }       
     }
 }

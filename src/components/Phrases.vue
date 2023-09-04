@@ -1,4 +1,19 @@
 <script setup lang="ts">
+type Phrase = {
+    name: string
+    phrase: string
+}
+const presetPhrases = [
+    
+]
+
+const phrases = (() => {
+    let p: Phrase[] = []
+    try {
+        p = JSON.parse(localStorage.getItem('phrases') || '[]')
+    } catch { }
+    return p
+})()
 
 </script>
 
