@@ -80,7 +80,7 @@ async function setPhrase(phrase: string) {
 
 <template>
     <div class="h-100 text-center d-flex flex-column justify-content-between" style="background-color: #000;">
-        <div class="py-3 bg-dark">
+        <div class="py-3">
             <span> ♪ BPM</span>
         </div>
         <div class="">

@@ -143,8 +143,8 @@ const noteMap = new Map<string, PlayNote>()
 noteMap.set('s', playSnare)
 noteMap.set('h', playHihat)
 noteMap.set('k', playKick)
-noteMap.set('t', (dest, when, duration)=> playTick(dest, when, duration, 1000))
-noteMap.set('t1', (dest, when, duration)=> playTick(dest, when, duration, 1500))
+noteMap.set('t', (dest, when, duration)=> playTick(dest, when, duration, 1500))
+noteMap.set('t1', (dest, when, duration)=> playTick(dest, when, duration, 1890))
 noteMap.set('t2', (dest, when, duration)=> playTick(dest, when, duration, 2250))
 
 const scaleList: [string, number][] = [

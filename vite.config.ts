@@ -11,7 +11,7 @@ export default defineConfig({
         VitePWA({
             registerType: 'autoUpdate',
             manifest: {
-                background_color: '#111111',                
+                background_color: 'rgb(33, 37, 41)',
             }
         }),
         vue(),
