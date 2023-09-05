@@ -96,7 +96,7 @@ export function play(beats: Beat[], onBeat: (index: number) => void) {
 
     const schedule = () => {
         const curTime = audio.currentTime
-        while (beatTime < curTime + 1) {
+        while (beatTime < curTime + 0.2) {
             const beatIndex = beatCount % beats.length
             const beat = beats[beatIndex]
             queuedBeats.push({ when: beatTime, index: beatIndex })
@@ -127,24 +127,13 @@ export function play(beats: Beat[], onBeat: (index: number) => void) {
         }
     }
 
-    const onTimer = () => {
-        if (playing) {
-            schedule()
-            setTimeout(onTimer, 250)
-        }
-    }
     const onFrame = () => {
         if (playing) {
             schedule()
             requestAnimationFrame(onFrame)
         }
     }
-
-    setTimeout(() => {
-        onTimer()
-        onFrame()
-    }, 0)
-
+    setTimeout(onFrame, 0)
     return {
         stop() {
             playing = false
