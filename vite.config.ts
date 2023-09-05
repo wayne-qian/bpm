@@ -8,7 +8,12 @@ import { VitePWA } from 'vite-plugin-pwa'
 export default defineConfig({
     base: './',
     plugins: [
-        VitePWA({registerType: 'autoUpdate'}),
+        VitePWA({
+            registerType: 'autoUpdate',
+            manifest: {
+                background_color: '#111111',                
+            }
+        }),
         vue(),
     ],
     resolve: {

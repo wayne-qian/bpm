@@ -79,23 +79,27 @@ async function setPhrase(phrase: string) {
 </script>
 
 <template>
-    <div class="card h-100 border-dark text-center">
-        <div class="card-header">
+    <div class="h-100 d-flex flex-column align-items-center justify-content-between">
+        <div class="p-2">
             ♪ BPM
         </div>
+        <div class="text-center">
+            <Phrases @phrase="setPhrase" class="col-2" />
+            <Beats :cur-beat="curBeat" :beats="beats" />
+        </div>
 
-        <div class="card-body d-flex flex-column align-items-center">
-            <div class="my-auto">
-                <div class="fw-lighter mb-4" style="font-size:6em;line-height: 1em;">{{ bpm }}</div>
-                <Phrases @phrase="setPhrase" />
-                <Beats :cur-beat="curBeat" :beats="beats" />
-            </div>
-            <Timing v-model:bpm="bpm" />
-        </div>
-        <div class="card-footer">
-            <button class="btn btn-primary" :disabled="toggling" @click="session ? stop() : play()"><i class="bi mx-3"
-                    style="font-size: 1.5rem;" :class="session ? 'bi-stop-fill' : 'bi-play-fill'"></i></button>
-        </div>
+        <Timing v-model:bpm="bpm" />
+        <button class="btn btn-primary btn-lg mb-4" :disabled="toggling" @click="session ? stop() : play()">
+            <svg v-if="session" xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor"
+                viewBox="0 0 16 16">
+                <path
+                    d="M5 3.5h6A1.5 1.5 0 0 1 12.5 5v6a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 11V5A1.5 1.5 0 0 1 5 3.5z" />
+            </svg>
+            <svg v-else xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 16 16">
+                <path
+                    d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
+            </svg>
+        </button>
     </div>
 </template>
 
