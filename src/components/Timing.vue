@@ -10,7 +10,7 @@ function delta(d: number) {
 
 <template>
     <div class="text-center">
-        <div class="fw-lighter" style="font-size:8em;line-height: 1em;">{{ bpm }}</div>
+        <div class="fw-lighter" style="font-size:7em;line-height: 1em;">{{ bpm }}</div>
         <div class="btn-group mt-5">
             <button class="btn btn-secondary py-2" @click="delta(-10)">-10</button>
             <button class="btn btn-secondary py-2" @click="delta(-5)">-5</button>
