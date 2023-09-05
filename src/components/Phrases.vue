@@ -1,29 +1,56 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+const keyPhrases = 'phrases'
+const keyCurrentPhraseID = 'curPhraseID'
+
+const emit = defineEmits<{ (event: 'phrase', phrase: string): void }>()
+
 type Phrase = {
+    id: number
     name: string
     phrase: string
 }
-const presetPhrases = [
-    
+
+const presets: Phrase[] = [
+    { id: -1, name: 'Tick 4th', phrase: 't1, t, t, t' },
+    { id: -2, name: 'Tick 8th', phrase: 't1 t, t t, t t, t t' },
+    { id: -3, name: 'Straight rock', phrase: 'h h, h h, h h, h h/ k, s, x k, s k' }
 ]
 
 const phrases = (() => {
-    let p: Phrase[] = []
+    const phrases = [...presets]
+
     try {
-        p = JSON.parse(localStorage.getItem('phrases') || '[]')
+        const saved = JSON.parse(localStorage.getItem(keyPhrases) || '[]')
+        phrases.push(...saved)
     } catch { }
-    return p
+    return phrases
 })()
+
+const curPhrase = ref((() => {
+    let id = parseInt(localStorage.getItem(keyCurrentPhraseID)!)
+    let p = phrases.find(p => p.id === id)
+    return p || presets[0]
+})())
+
+function selectPhrase(phrase: Phrase) {
+    curPhrase.value = phrase
+    localStorage.setItem(keyCurrentPhraseID, phrase.id + '')
+    emit('phrase', phrase.phrase)
+}
+
+emit('phrase', curPhrase.value.phrase)
 
 </script>
 
 <template>
     <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        Straight Rock
+        {{ curPhrase.name }}
     </button>
     <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Action</a></li>
-        <li><a class="dropdown-item" href="#">Another action</a></li>
-        <li><a class="dropdown-item" href="#">Something else here</a></li>
+        <li v-for="(p, i) in phrases" :key="p.id"><a class="dropdown-item" @click="selectPhrase(p)">{{ (i +
+            1)
+            + '. ' +
+            p.name }}</a></li>
     </ul>
 </template>

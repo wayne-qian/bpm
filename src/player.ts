@@ -3,11 +3,11 @@ import { Audio } from './audio'
 type Note = {
     sym: string
     offset: number
-    timing: number
+    duration: number
     gain: number
 }
 
-type Beat = { notes: Note[], mute: boolean }
+export type Beat = { notes: Note[], mute: boolean }
 
 function prefixLen(str: string, p: string) {
     let len = 0
@@ -18,7 +18,7 @@ function prefixLen(str: string, p: string) {
 
 function parseBeat(beatStr: string) {
     const notes = beatStr.split(/\s+/).filter(note => note)
-    const timing = 1 / notes.length
+    const duration = 1 / notes.length
     return notes.map<Note>((note, i) => {
         let gain = 1
         let accent = prefixLen(note, '!')
@@ -31,7 +31,7 @@ function parseBeat(beatStr: string) {
             note = note.slice(weak)
         }
 
-        return { sym: note, offset: timing * i, timing, gain }
+        return { sym: note, offset: duration * i, duration, gain }
     })
 }
 
@@ -46,7 +46,7 @@ function parseBar(barStr: string) {
         beats.notes.forEach(note => {
             if (note.sym === '-') {
                 if (lastNote) {
-                    lastNote.timing += note.timing
+                    lastNote.duration += note.duration
                 }
             } else {
                 normalizedNotes.push(note)
@@ -107,7 +107,7 @@ export function play(beats: Beat[], onBeat: (index: number) => void) {
                     note.sym,
                     note.gain,
                     beatTime + beatDur * note.offset,
-                    beatDur * note.timing)
+                    beatDur * note.duration)
 
             })
             if (beat.mute) {
@@ -152,6 +152,6 @@ export function play(beats: Beat[], onBeat: (index: number) => void) {
         },
         tempo(newBpm: number) {
             bpm = newBpm
-        }       
+        }
     }
 }
