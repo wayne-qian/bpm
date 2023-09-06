@@ -14,7 +14,7 @@ export default defineConfig({
               name: 'BPM Metronome',
               short_name: 'BPM',
               description: 'Cool Metronome',
-              theme_color: 'rgb(33, 37, 41)',
+              theme_color: 'rgb(0,0,0)',
               icons: [
                 {
                   src: 'pwa-192x192.png',
