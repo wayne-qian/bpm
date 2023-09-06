@@ -82,15 +82,14 @@ export function parsePhrase(phraseStr: string) {
     return mixedBeats
 }
 
-export function play(beats: Beat[], onBeat: (index: number) => void) {
+export function play(beats: Beat[], bpm: number) {
     const audio = new Audio()
     const queuedBeats: { when: number, index: number }[] = []
 
     let playing = true
-    let bpm = 60
-
     let beatTime = audio.currentTime + 0.1
     let beatCount = 0
+    let _onBeat: (index: number) => void
 
     queuedBeats.push({ when: beatTime, index: beatCount })
 
@@ -123,7 +122,7 @@ export function play(beats: Beat[], onBeat: (index: number) => void) {
             if (b0.when > curTime) break
 
             queuedBeats.shift()
-            onBeat(b0.index)
+            _onBeat && _onBeat(b0.index)
         }
     }
 
@@ -141,6 +140,9 @@ export function play(beats: Beat[], onBeat: (index: number) => void) {
         },
         tempo(newBpm: number) {
             bpm = newBpm
+        },
+        set onBeat(cb: (index: number) => void) {
+            _onBeat = cb
         }
     }
 }
