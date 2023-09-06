@@ -84,9 +84,11 @@ async function setPhrase(phrase: string) {
         <div />
         <div>
             <Phrases @phrase="setPhrase" />
-            <Beats class="mt-3" :cur-beat="curBeat" :beats="beats" />
         </div>
-        <Timing class="py-2" v-model:bpm="bpm" />
+        <div>
+            <Beats :cur-beat="curBeat" :beats="beats" />
+        </div>
+        <Timing class="py-2 mt-3" v-model:bpm="bpm" />
         <div class="py-4 bg-dark">
             <PlayBtn :playing="!!session" @click="session ? stop() : play()" :disabled="toggling" />
         </div>
