@@ -65,13 +65,11 @@ async function stop() {
     }
 }
 
-document.onvisibilitychange = (() => {
-    return () => {
-        if (document.visibilityState !== "visible") {
-            stop()
-        }
+document.onvisibilitychange = () => {
+    if (document.visibilityState !== "visible") {
+        stop()
     }
-})()
+}
 
 async function setPhrase(phrase: string) {
     beats.value = Player.parsePhrase(phrase)

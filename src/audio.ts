@@ -8,7 +8,7 @@ function playSnare(dest: AudioNode, when: number, duration: number) {
     const filter = ctx.createBiquadFilter()
     filter.connect(dest)
     filter.type = "highpass"
-    filter.frequency.value = 1000 // Measured in Hz
+    filter.frequency.value = 600 // Measured in Hz
 
     // Control the gain of our snare white noise
     const noiseGain = ctx.createGain();
@@ -85,7 +85,7 @@ function playKick(dest: AudioNode, when: number, duration: number) {
     osc.connect(gain);
 
     // Frequency in Hz. This corresponds to a C note.
-    osc.frequency.setValueAtTime(150, when);
+    osc.frequency.setValueAtTime(200, when);
     osc.frequency.exponentialRampToValueAtTime(
         0.001,
         when + duration
