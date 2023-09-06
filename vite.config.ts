@@ -9,10 +9,26 @@ export default defineConfig({
     base: './',
     plugins: [
         VitePWA({
-            registerType: 'autoUpdate',
+            includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
             manifest: {
-                background_color: 'rgb(33, 37, 41)',
-            }
+              name: 'BPM Metronome',
+              short_name: 'BPM',
+              description: 'Cool Metronome',
+              theme_color: 'rgb(33, 37, 41)',
+              icons: [
+                {
+                  src: 'pwa-192x192.png',
+                  sizes: '192x192',
+                  type: 'image/png'
+                },
+                {
+                  src: 'pwa-512x512.png',
+                  sizes: '512x512',
+                  type: 'image/png'
+                }
+              ]
+            },
+            registerType: 'autoUpdate',
         }),
         vue(),
     ],
