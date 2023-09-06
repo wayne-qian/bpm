@@ -132,7 +132,7 @@ export function play(beats: Beat[], bpm: number) {
             requestAnimationFrame(onFrame)
         }
     }
-    setTimeout(onFrame, 0)
+    onFrame()
     return {
         stop() {
             playing = false

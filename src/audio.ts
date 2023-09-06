@@ -56,7 +56,7 @@ function playHihat(dest: AudioNode, when: number, duration: number) {
     // Control the gain of our snare white noise
     const noiseGain = ctx.createGain();
     noiseGain.connect(filter)
-    noiseGain.gain.setValueAtTime(1, when);
+    noiseGain.gain.setValueAtTime(0.5, when);
     noiseGain.gain.exponentialRampToValueAtTime(
         0.001,
         when + duration
@@ -74,7 +74,7 @@ function playKick(dest: AudioNode, when: number, duration: number) {
     const ctx = dest.context
 
     const gain = ctx.createGain();
-    gain.gain.setValueAtTime(1, when);
+    gain.gain.setValueAtTime(0.5, when);
     gain.gain.exponentialRampToValueAtTime(
         0.001,
         when + duration
@@ -129,7 +129,7 @@ const generateNoiseBuffer = (() => {
             for (let c = 0; c < buf.numberOfChannels; c++) {
                 const data = buf.getChannelData(c);
                 for (let i = 0; i < buf.length; i++) {
-                    data[i] = Math.random() - 0.5;
+                    data[i] = (Math.random() - 0.5) / 3;
                 }
             }
         }
@@ -143,9 +143,9 @@ const noteMap = new Map<string, PlayNote>()
 noteMap.set('s', playSnare)
 noteMap.set('h', playHihat)
 noteMap.set('k', playKick)
-noteMap.set('t', (dest, when, duration)=> playTick(dest, when, duration, 1500))
-noteMap.set('t1', (dest, when, duration)=> playTick(dest, when, duration, 1890))
-noteMap.set('t2', (dest, when, duration)=> playTick(dest, when, duration, 2250))
+noteMap.set('t', (dest, when, duration) => playTick(dest, when, duration, 1500))
+noteMap.set('t1', (dest, when, duration) => playTick(dest, when, duration, 1890))
+noteMap.set('t2', (dest, when, duration) => playTick(dest, when, duration, 2250))
 
 const scaleList: [string, number][] = [
     ['c', 261.63],
@@ -174,12 +174,12 @@ scaleList.forEach(v => {
     })
 })
 
-const masterGainValue = 0.7
+const masterGainValue = 1
 
 export class Audio {
     private ctx: AudioContext
     private master: GainNode
-    private compressor: DynamicsCompressorNode
+     private compressor: DynamicsCompressorNode
 
     constructor() {
         this.ctx = new AudioContext()

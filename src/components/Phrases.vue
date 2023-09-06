@@ -14,8 +14,8 @@ type Phrase = {
 const presets: Phrase[] = [
     { id: -1, name: 'Tick 4th', phrase: 't1, t, t, t' },
     { id: -2, name: 'Tick 8th', phrase: 't1 t, t t, t t, t t' },
-    { id: -3, name: 'Straight rock', phrase: 'h h, h h, h h, h h/ k, s, x k, s k' },
-    { id: -4, name: 'Funky One', phrase: 'h h, h h, x !!h, h h/ !!k,,k k,/,s x x s ,x s x x,x x s x' },
+    { id: -3, name: 'Straight Rock', phrase: 'h h, h h, h h, h h/ k, s, x k, s k' },
+    { id: -4, name: 'Funky One', phrase: '!h h, !h h, !h !!!h, !h h,!h h,!h h,!h h,!h h/ !!k,,k k,,x k,,x k,x k/,s x x s ,x s x x,x x s x,x s x x,s x x s,x s x x,s' },
     { id: -5, name: 'South Side Shuffle', phrase: 'h x h, h x h, h x h, h x h/ k x k,,k x k,/,s,,s x s' }
 ]
 
@@ -46,13 +46,18 @@ emit('phrase', curPhrase.value.phrase)
 </script>
 
 <template>
-    <button class="btn dropdown-toggle" style="min-width: 50%;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        {{ curPhrase.name }}
-    </button>
-    <ul class="dropdown-menu">
-        <li v-for="(p, i) in phrases" :key="p.id"><a class="dropdown-item" @click="selectPhrase(p)">{{ (i +
-            1)
-            + '. ' +
-            p.name }}</a></li>
-    </ul>
+    <div class="dropdown-center">
+        <button class="btn dropdown-toggle" style="min-width: 50%;" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            {{ curPhrase.name }}
+        </button>
+        <ul class="dropdown-menu">
+            <li v-for="(p, i) in phrases" :key="p.id"><a class="dropdown-item" @click="selectPhrase(p)">{{ (i +
+                1)
+                + '. ' +
+                p.name }}</a></li>
+            <div class="dropdown-divider"></div>
+            <li><a class="dropdown-item">New Phrase</a></li>
+        </ul>
+    </div>
 </template>
