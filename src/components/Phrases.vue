@@ -14,7 +14,9 @@ type Phrase = {
 const presets: Phrase[] = [
     { id: -1, name: 'Tick 4th', phrase: 't1, t, t, t' },
     { id: -2, name: 'Tick 8th', phrase: 't1 t, t t, t t, t t' },
-    { id: -3, name: 'Straight rock', phrase: 'h h, h h, h h, h h/ k, s, x k, s k' }
+    { id: -3, name: 'Straight rock', phrase: 'h h, h h, h h, h h/ k, s, x k, s k' },
+    { id: -4, name: 'Funky One', phrase: 'h h, h h, x !!h, h h/ !!k,,k k,/,s x x s ,x s x x,x x s x' },
+    { id: -5, name: 'South Side Shuffle', phrase: 'h x h, h x h, h x h, h x h/ k x k,,k x k,/,s,,s x s' }
 ]
 
 const phrases = (() => {
