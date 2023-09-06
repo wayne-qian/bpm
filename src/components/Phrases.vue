@@ -44,7 +44,7 @@ emit('phrase', curPhrase.value.phrase)
 </script>
 
 <template>
-    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <button class="btn btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
         {{ curPhrase.name }}
     </button>
     <ul class="dropdown-menu">

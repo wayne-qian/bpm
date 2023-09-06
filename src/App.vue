@@ -81,11 +81,12 @@ async function setPhrase(phrase: string) {
 
 <template>
     <div class="h-100 text-center d-flex flex-column justify-content-between">
-        <div class="py-2">
-            <Phrases @phrase="setPhrase" class="col-2" />
-            <Beats :cur-beat="curBeat" :beats="beats" />
+        <div />
+        <div>
+            <Phrases @phrase="setPhrase" />
+            <Beats class="mt-3" :cur-beat="curBeat" :beats="beats" />
         </div>
-        <Timing v-model:bpm="bpm" />
+        <Timing class="py-2" v-model:bpm="bpm" />
         <div class="py-4 bg-dark">
             <PlayBtn :playing="!!session" @click="session ? stop() : play()" :disabled="toggling" />
         </div>
