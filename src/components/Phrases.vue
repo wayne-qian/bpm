@@ -12,11 +12,27 @@ type Phrase = {
 }
 
 const presets: Phrase[] = [
-    { id: -1, name: 'Tick 4th', phrase: 't1, t, t, t' },
-    { id: -2, name: 'Tick 8th', phrase: 't1 t, t t, t t, t t' },
-    { id: -3, name: 'Straight Rock', phrase: 'h h, h h, h h, h h/ k, s, x k, s k' },
-    { id: -4, name: 'Funky One', phrase: '!h h, !h h, !h !!!h, !h h,!h h,!h h,!h h,!h h/ !!k,,k k,,x k,,x k,x k/,s x x s ,x s x x,x x s x,x s x x,s x x s,x s x x,s' },
-    { id: -5, name: 'South Side Shuffle', phrase: 'h x h, h x h, h x h, h x h/ k x k,,k x k,/,s,,s x s' }
+    { id: -1, name: 'Tick 4th', phrase: 'drumKit: T t t t' },
+    { id: -2, name: 'Tick 8th', phrase: 'drumKit: Tt tt tt tt' },
+    {
+        id: -3, name: 'Straight Rock', phrase: `
+drumKit: hh hh hh hh
+drumKit: -- s- -- s-
+drumKit: k- -- -k -k
+` },
+    {
+        id: -4, name: 'Funky One', phrase: `
+drumKit: h-h- h-h- h-h- h-h- | h-h- h-h- h-h- h-h-
+drumKit: ---- s--s -s-- --s- | -s-- s--s -s-- s---
+drumKit: k--- ---- k-k- ---- | --k- ---- --k- --k-
+`},
+    { id: -5, name: 'South Side Shuffle', phrase: `
+drumKit: h-h h-h h-h h-h
+drumKit: --- s-- --- s-s
+drumKit: k-k --- k-k ---
+`
+    }
+   //'h x h, h x h, h x h, h x h/ k x k,,k x k,/,s,,s x s' }
 ]
 
 const phrases = (() => {

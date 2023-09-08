@@ -5,6 +5,7 @@ import Beats from './components/Beats.vue'
 import * as Player from './player';
 import { ref, watch } from 'vue';
 import PlayBtn from './components/PlayBtn.vue';
+import { type Phrase, parsePhrase } from './phrase';
 
 const bpm = ref(parseInt(localStorage.getItem('bpm')!) || 60)
 watch(bpm, newVal => {
@@ -14,10 +15,11 @@ watch(bpm, newVal => {
     }
 })
 
-const beats = ref<ReturnType<typeof Player.parsePhrase>>([])
+const phrase = ref<Phrase>({ tracks: [] })
 const session = ref(null as ReturnType<typeof Player.play> | null)
 const curBeat = ref(-1)
 const toggling = ref(false)
+const muteBeats = ref(new Set<number>())
 
 let screenWakeLock: WakeLockSentinel | null = null
 
@@ -25,7 +27,7 @@ function replay() {
     if (session.value) {
         session.value.stop()
         curBeat.value = -1
-        session.value = Player.play(beats.value, bpm.value)
+        session.value = Player.play(phrase.value, bpm.value, muteBeats.value)
         session.value.onBeat = index => curBeat.value = index
     }
 }
@@ -36,7 +38,7 @@ async function play() {
     }
     toggling.value = true
     try {
-        session.value = Player.play(beats.value, bpm.value)
+        session.value = Player.play(phrase.value, bpm.value, muteBeats.value)
         session.value.onBeat = index => curBeat.value = index
         if (navigator.wakeLock) {
             screenWakeLock = await navigator.wakeLock.request('screen')
@@ -71,8 +73,9 @@ document.onvisibilitychange = () => {
     }
 }
 
-async function setPhrase(phrase: string) {
-    beats.value = Player.parsePhrase(phrase)
+async function setPhrase(phraseStr: string) {
+    phrase.value = parsePhrase(phraseStr)
+    muteBeats.value = new Set()
     replay()
 }
 </script>
@@ -84,7 +87,7 @@ async function setPhrase(phrase: string) {
             <Phrases @phrase="setPhrase" />
         </div>
         <div>
-            <Beats :cur-beat="curBeat" :beats="beats" />
+            <Beats :cur-beat="curBeat" :beatCount="phrase.tracks[0]?.bpb || 4" :mutes="muteBeats" />
         </div>
         <Timing class="py-2 mt-3" v-model:bpm="bpm" />
         <div class="py-4 bg-dark">

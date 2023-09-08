@@ -137,49 +137,53 @@ const generateNoiseBuffer = (() => {
     }
 })()
 
+const drumKit: { [s: string]: PlayNote } = {
+    's': playSnare,
+    'k': playKick,
+    'h': playHihat,
+    't': (dest, when, duration) => playTick(dest, when, duration, 1500),
+    'T': (dest, when, duration) => playTick(dest, when, duration, 1890),
+}
 
-const noteMap = new Map<string, PlayNote>()
 
-noteMap.set('s', playSnare)
-noteMap.set('h', playHihat)
-noteMap.set('k', playKick)
-noteMap.set('t', (dest, when, duration) => playTick(dest, when, duration, 1500))
-noteMap.set('t1', (dest, when, duration) => playTick(dest, when, duration, 1890))
-noteMap.set('t2', (dest, when, duration) => playTick(dest, when, duration, 2250))
+const sets: { [s: string]: { [s: string]: PlayNote } } = {
+    'drumKit': drumKit
+}
 
-const scaleList: [string, number][] = [
-    ['c', 261.63],
-    ["c#", 277.18],
-    ["d", 293.66],
-    ["d#", 311.13],
-    ["e", 329.63],
-    ["f", 349.23],
-    ["f#", 369.99],
-    ["g", 392.0],
-    ["g#", 415.3],
-    ["a", 440.0],
-    ["a#", 466.16],
-    ["b", 493.88],
-]
 
-scaleList.forEach(v => {
-    noteMap.set(v[0], (dest, when, duration) => {
-        const ctx = dest.context
-        const osc = ctx.createOscillator()
-        osc.connect(dest)
-        osc.frequency.value = v[1]
+// const scaleList: [string, number][] = [
+//     ['c', 261.63],
+//     ["c#", 277.18],
+//     ["d", 293.66],
+//     ["d#", 311.13],
+//     ["e", 329.63],
+//     ["f", 349.23],
+//     ["f#", 369.99],
+//     ["g", 392.0],
+//     ["g#", 415.3],
+//     ["a", 440.0],
+//     ["a#", 466.16],
+//     ["b", 493.88],
+// ]
 
-        osc.start(when);
-        osc.stop(when + duration)
-    })
-})
+// scaleList.forEach(v => {
+//     noteMap.set(v[0], (dest, when, duration) => {
+//         const ctx = dest.context
+//         const osc = ctx.createOscillator()
+//         osc.connect(dest)
+//         osc.frequency.value = v[1]
+
+//         osc.start(when);
+//         osc.stop(when + duration)
+//     })
+// })
 
 const masterGainValue = 1
 
 export class Audio {
     private ctx: AudioContext
     private master: GainNode
-     private compressor: DynamicsCompressorNode
+    private compressor: DynamicsCompressorNode
 
     constructor() {
         this.ctx = new AudioContext()
@@ -195,12 +199,12 @@ export class Audio {
         return this.ctx.currentTime
     }
 
-    play(note: string, gainVal: number, when: number, duration: number) {
+    play(set: string, sym: string, strength: number, when: number, duration: number) {
         const gain = this.ctx.createGain()
         gain.connect(this.compressor)
-        gain.gain.value = gainVal
+        gain.gain.value = strength
 
-        const play = noteMap.get(note.toLowerCase())
+        const play = (sets[set] || {})[sym]
         if (play) {
             play(gain, when, duration)
             return true
