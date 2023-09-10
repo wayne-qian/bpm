@@ -19,20 +19,21 @@ const presets: Phrase[] = [
 drumKit: hh hh hh hh
 drumKit: -- s- -- s-
 drumKit: k- -- -k -k
-` },
+`},
     {
         id: -4, name: 'Funky One', phrase: `
 drumKit: h-h- h-h- h-h- h-h- | h-h- h-h- h-h- h-h-
 drumKit: ---- s--s -s-- --s- | -s-- s--s -s-- s---
 drumKit: k--- ---- k-k- ---- | --k- ---- --k- --k-
 `},
-    { id: -5, name: 'South Side Shuffle', phrase: `
+    {
+        id: -5, name: 'South Side Shuffle', phrase: `
 drumKit: h-h h-h h-h h-h
 drumKit: --- s-- --- s-s
 drumKit: k-k --- k-k ---
-`
-    }
-   //'h x h, h x h, h x h, h x h/ k x k,,k x k,/,s,,s x s' }
+`},
+
+
 ]
 
 const phrases = (() => {

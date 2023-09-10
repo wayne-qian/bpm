@@ -2,13 +2,13 @@ type PlayNote = (dest: AudioNode, when: number, duration: number) => void
 
 
 function playSnare(dest: AudioNode, when: number, duration: number) {
-    duration = Math.min(0.2, duration)
+    duration = Math.min(0.18, duration)
     const ctx = dest.context
 
     const filter = ctx.createBiquadFilter()
     filter.connect(dest)
     filter.type = "highpass"
-    filter.frequency.value = 600 // Measured in Hz
+    filter.frequency.value = 320 // Measured in Hz
 
     // Control the gain of our snare white noise
     const noiseGain = ctx.createGain();
@@ -150,33 +150,95 @@ const sets: { [s: string]: { [s: string]: PlayNote } } = {
     'drumKit': drumKit
 }
 
+type StringParam = {
+    baseFreq: number
+    harmonicSeries: number[]
+    attackDur: number
+    decayDur: number
+    releaseDur: number
+    sustainLevel: number
+    vibrato: number
+}
 
-// const scaleList: [string, number][] = [
-//     ['c', 261.63],
-//     ["c#", 277.18],
-//     ["d", 293.66],
-//     ["d#", 311.13],
-//     ["e", 329.63],
-//     ["f", 349.23],
-//     ["f#", 369.99],
-//     ["g", 392.0],
-//     ["g#", 415.3],
-//     ["a", 440.0],
-//     ["a#", 466.16],
-//     ["b", 493.88],
-// ]
+function playString(dest: AudioNode, when: number, duration: number, param: StringParam) {
+    const ctx = dest.context
 
-// scaleList.forEach(v => {
-//     noteMap.set(v[0], (dest, when, duration) => {
-//         const ctx = dest.context
-//         const osc = ctx.createOscillator()
-//         osc.connect(dest)
-//         osc.frequency.value = v[1]
+    const vibGain = ctx.createGain()
+    vibGain.gain.value = 1.5
 
-//         osc.start(when);
-//         osc.stop(when + duration)
-//     })
-// })
+    const vib = ctx.createOscillator()
+    vib.connect(vibGain)
+    vib.frequency.value = param.vibrato
+    vib.start(when)
+    vib.stop(when + duration)
+
+    const attackDur = Math.min(param.attackDur, duration / 20);
+    const decayDur = Math.min(param.decayDur, duration / 10);
+    const releaseDur = Math.min(param.releaseDur, duration / 2);
+
+    const noteGain = ctx.createGain();
+    noteGain.connect(dest)
+
+    noteGain.gain.setValueAtTime(0, when);
+    noteGain.gain.linearRampToValueAtTime(1, when + attackDur);
+    noteGain.gain.linearRampToValueAtTime(
+        param.sustainLevel,
+        when + attackDur + decayDur
+    );
+    noteGain.gain.linearRampToValueAtTime(param.sustainLevel / 3, when + duration - releaseDur);
+    noteGain.gain.exponentialRampToValueAtTime(0.001, when + duration);
+
+    param.harmonicSeries.forEach((lvl, i) => {
+        const gain = ctx.createGain()
+        gain.connect(noteGain)
+        gain.gain.value = lvl
+
+        const n = ctx.createOscillator()
+        n.connect(gain)
+        vibGain.connect(n.frequency);
+        n.frequency.value = param.baseFreq * (i + 1)
+
+        n.start(when);
+        n.stop(when + duration);
+    })
+}
+
+
+const scaleList: [string, number][] = [
+    ['c', 261.63],
+    ["C", 277.18],
+    ["d", 293.66],
+    ["D", 311.13],
+    ["e", 329.63],
+    ["f", 349.23],
+    ["F", 369.99],
+    ["g", 392.0],
+    ["G", 415.3],
+    ["a", 440.0],
+    ["A", 466.16],
+    ["b", 493.88],
+]
+
+for (let i = 0; i < 4; i++) {
+    const set: { [s: string]: PlayNote } = {}
+    scaleList.forEach(v => {
+        const [sym, freq] = v
+        set[sym] = (dest, when, duration) => playString(dest, when, duration, {
+            baseFreq: freq * Math.pow(2, i),
+            attackDur: 0.01,
+            decayDur: 0.02,
+            releaseDur: 0.2,
+            sustainLevel: 0.3,
+            vibrato: 3,
+            harmonicSeries: [0.5, 0.1, 0.05, 0.02, 0.01,0.005, 0.001]
+        })
+    })
+    sets[`piano.${i}`] = set
+    if (i === 0) {
+        sets['piano'] = set
+    }
+}
+
 
 const masterGainValue = 1
 

@@ -13,13 +13,18 @@ function delta(d: number) {
         <div class="text-secondary">BPM</div>
         <div class="fw-lighter" style="font-size:7em;line-height: 1em;">{{ bpm }}</div>
         <div class="btn-group mt-4">
-            <button class="btn btn-secondary py-2" @click="delta(-10)">-10</button>
-            <button class="btn btn-secondary py-2" @click="delta(-5)">-5</button>
-            <button class="btn btn-secondary py-2" @click="delta(-1)">-1</button>
+            <button class="btn btn-secondary py-2 dbtn" @click="delta(-10)">-10</button>
+            <button class="btn btn-secondary py-2 dbtn" @click="delta(-5)">-5</button>
+            <button class="btn btn-secondary py-2 dbtn" @click="delta(-1)">-1</button>
             &ThickSpace;
-            <button class="btn btn-secondary py-2" @click="delta(1)">+1</button>
-            <button class="btn btn-secondary py-2" @click="delta(5)">+5</button>
-            <button class="btn btn-secondary py-2" @click="delta(10)">+10</button>
+            <button class="btn btn-secondary py-2 dbtn" @click="delta(1)">+1</button>
+            <button class="btn btn-secondary py-2 dbtn" @click="delta(5)">+5</button>
+            <button class="btn btn-secondary py-2 dbtn" @click="delta(10)">+10</button>
         </div>
     </div>
 </template>
+<style scoped>
+.dbtn {
+    width: 3.5em;
+}
+</style>
