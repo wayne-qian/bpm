@@ -163,31 +163,33 @@ type StringParam = {
 function playString(dest: AudioNode, when: number, duration: number, param: StringParam) {
     const ctx = dest.context
 
-    const vibGain = ctx.createGain()
-    vibGain.gain.value = 1.5
-
-    const vib = ctx.createOscillator()
-    vib.connect(vibGain)
-    vib.frequency.value = param.vibrato
-    vib.start(when)
-    vib.stop(when + duration)
-
-    const attackDur = Math.min(param.attackDur, duration / 20);
+    const attackDur = Math.min(param.attackDur, duration / 40);
     const decayDur = Math.min(param.decayDur, duration / 10);
-    const releaseDur = Math.min(param.releaseDur, duration / 2);
+    const releaseDur = Math.min(param.releaseDur, duration / 10);
 
     const noteGain = ctx.createGain();
     noteGain.connect(dest)
 
     noteGain.gain.setValueAtTime(0, when);
-    noteGain.gain.linearRampToValueAtTime(1, when + attackDur);
+    noteGain.gain.linearRampToValueAtTime(param.sustainLevel * 1.5, when + attackDur);
     noteGain.gain.linearRampToValueAtTime(
         param.sustainLevel,
         when + attackDur + decayDur
     );
-    noteGain.gain.linearRampToValueAtTime(param.sustainLevel / 3, when + duration - releaseDur);
+    noteGain.gain.linearRampToValueAtTime(param.sustainLevel / 5, when + duration - releaseDur);
     noteGain.gain.exponentialRampToValueAtTime(0.001, when + duration);
 
+    let vibGain: GainNode | null
+    if (duration - attackDur - releaseDur - decayDur > 0.4) {
+        const vibGain = ctx.createGain()
+        vibGain.gain.value = 1.5
+
+        const vib = ctx.createOscillator()
+        vib.connect(vibGain)
+        vib.frequency.value = param.vibrato
+        vib.start(when + attackDur + decayDur)
+        vib.stop(when + duration)
+    }
     param.harmonicSeries.forEach((lvl, i) => {
         const gain = ctx.createGain()
         gain.connect(noteGain)
@@ -195,12 +197,13 @@ function playString(dest: AudioNode, when: number, duration: number, param: Stri
 
         const n = ctx.createOscillator()
         n.connect(gain)
-        vibGain.connect(n.frequency);
+        vibGain && vibGain.connect(n.frequency);
         n.frequency.value = param.baseFreq * (i + 1)
 
         n.start(when);
         n.stop(when + duration);
     })
+
 }
 
 
@@ -219,22 +222,22 @@ const scaleList: [string, number][] = [
     ["b", 493.88],
 ]
 
-for (let i = 0; i < 4; i++) {
+for (let i = 1; i <= 7; i++) {
     const set: { [s: string]: PlayNote } = {}
     scaleList.forEach(v => {
         const [sym, freq] = v
         set[sym] = (dest, when, duration) => playString(dest, when, duration, {
-            baseFreq: freq * Math.pow(2, i),
-            attackDur: 0.01,
-            decayDur: 0.02,
-            releaseDur: 0.2,
+            baseFreq: freq * Math.pow(2, i - 4),
+            attackDur: 0.02 / i,
+            decayDur: 0.04 / i,
+            releaseDur: 0.03 * i,
             sustainLevel: 0.3,
             vibrato: 3,
-            harmonicSeries: [0.5, 0.1, 0.05, 0.02, 0.01,0.005, 0.001]
+            harmonicSeries: [0.5, 0.6, 0.2, 0.1].map((l, j) => j === 0 ? l : l / (j + 1))
         })
     })
     sets[`piano.${i}`] = set
-    if (i === 0) {
+    if (i === 4) {
         sets['piano'] = set
     }
 }

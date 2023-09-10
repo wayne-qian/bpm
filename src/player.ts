@@ -7,7 +7,7 @@ export function play(phrase: Phrase, bpm: number, muteBeats: Set<number>) {
 
     const bpb = phrase.tracks[0]?.bpb || 4
     let playing = true
-    let beatTime = audio.currentTime + 0.1
+    let beatTime = audio.currentTime + 0.2
     let beatCount = 0
     let _onBeat: (index: number) => void
 
@@ -15,7 +15,7 @@ export function play(phrase: Phrase, bpm: number, muteBeats: Set<number>) {
 
     const schedule = () => {
         const curTime = audio.currentTime
-        while (beatTime < curTime + 60 / bpm / 2) {
+        while (beatTime < curTime + 0.2) {
             const beatDur = 60 / bpm
             phrase.tracks.forEach(track => {
                 track.beats[beatCount % track.beats.length]?.notes

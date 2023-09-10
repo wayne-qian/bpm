@@ -14,6 +14,8 @@ type Phrase = {
 const presets: Phrase[] = [
     { id: -1, name: 'Tick 4th', phrase: 'drumKit: T t t t' },
     { id: -2, name: 'Tick 8th', phrase: 'drumKit: Tt tt tt tt' },
+    { id: -4, name: 'Piano 4th', phrase: 'piano.5: g... c... c... c...' },
+    { id: -5, name: 'Piano 8th', phrase: 'piano.5: g.c. c.c. c.c. c.c.' },
     {
         id: -3, name: 'Straight Rock', phrase: `
 drumKit: hh hh hh hh
