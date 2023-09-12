@@ -150,7 +150,7 @@ const sets: { [s: string]: { [s: string]: PlayNote } } = {
     'drumKit': drumKit
 }
 
-type StringParam = {
+type PianoParam = {
     baseFreq: number
     harmonicSeries: number[]
     attackDur: number
@@ -160,7 +160,7 @@ type StringParam = {
     vibrato: number
 }
 
-function playString(dest: AudioNode, when: number, duration: number, param: StringParam) {
+function playPiano(dest: AudioNode, when: number, duration: number, param: PianoParam) {
     const ctx = dest.context
 
     const attackDur = Math.min(param.attackDur, duration / 40);
@@ -226,7 +226,7 @@ for (let i = 1; i <= 7; i++) {
     const set: { [s: string]: PlayNote } = {}
     scaleList.forEach(v => {
         const [sym, freq] = v
-        set[sym] = (dest, when, duration) => playString(dest, when, duration, {
+        set[sym] = (dest, when, duration) => playPiano(dest, when, duration, {
             baseFreq: freq * Math.pow(2, i - 4),
             attackDur: 0.02 / i,
             decayDur: 0.04 / i,

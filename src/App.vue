@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Phrases from './components/Phrases.vue'
-import Timing from './components/Timing.vue'
+import Tempo from './components/Tempo.vue'
 import Beats from './components/Beats.vue'
 import * as Player from './player';
 import { ref, watch } from 'vue';
@@ -89,7 +89,7 @@ async function setPhrase(phraseStr: string) {
         <div>
             <Beats :cur-beat="curBeat" :beatCount="phrase.tracks[0]?.bpb || 4" :mutes="muteBeats" />
         </div>
-        <Timing class="py-2 mt-3" v-model:bpm="bpm" />
+        <Tempo class="py-2 mt-3" v-model:bpm="bpm" />
         <div class="py-4 bg-dark">
             <PlayBtn :playing="!!session" @click="session ? stop() : play()" :disabled="toggling" />
         </div>

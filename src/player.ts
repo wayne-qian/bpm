@@ -37,14 +37,14 @@ export function play(phrase: Phrase, bpm: number, muteBeats: Set<number>) {
             beatTime += beatDur
             beatCount++
         }
-
-        for (; ;) {
+        while (queuedBeats.length) {
             const b0 = queuedBeats[0]
-            if (!b0) break
-            if (b0.when > curTime) break
-
-            queuedBeats.shift()
-            _onBeat && _onBeat(b0.index)
+            if (b0.when <= curTime) {
+                queuedBeats.shift()
+                _onBeat && _onBeat(b0.index)
+            } else {
+                break
+            }
         }
     }
 
