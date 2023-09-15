@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import Phrases from './components/Phrases.vue'
+import Rhythms from './components/Rhythms.vue'
 import Tempo from './components/Tempo.vue'
 import Beats from './components/Beats.vue'
 import * as Player from './player';
 import { ref, watch } from 'vue';
 import PlayBtn from './components/PlayBtn.vue';
-import { type Phrase, parsePhrase } from './phrase';
+import { type Rhythm, parseRhythm } from './rhythm';
 
 const bpm = ref(parseInt(localStorage.getItem('bpm')!) || 60)
 watch(bpm, newVal => {
@@ -15,7 +15,7 @@ watch(bpm, newVal => {
     }
 })
 
-const phrase = ref<Phrase>({ tracks: [] })
+const rhythm = ref<Rhythm>({ tracks: [] })
 const session = ref(null as ReturnType<typeof Player.play> | null)
 const curBeat = ref(-1)
 const toggling = ref(false)
@@ -27,7 +27,7 @@ function replay() {
     if (session.value) {
         session.value.stop()
         curBeat.value = -1
-        session.value = Player.play(phrase.value, bpm.value, muteBeats.value)
+        session.value = Player.play(rhythm.value, bpm.value, muteBeats.value)
         session.value.onBeat = index => curBeat.value = index
     }
 }
@@ -38,7 +38,7 @@ async function play() {
     }
     toggling.value = true
     try {
-        session.value = Player.play(phrase.value, bpm.value, muteBeats.value)
+        session.value = Player.play(rhythm.value, bpm.value, muteBeats.value)
         session.value.onBeat = index => curBeat.value = index
         if (navigator.wakeLock) {
             screenWakeLock = await navigator.wakeLock.request('screen')
@@ -73,8 +73,8 @@ document.onvisibilitychange = () => {
     }
 }
 
-async function setPhrase(phraseStr: string) {
-    phrase.value = parsePhrase(phraseStr)
+async function setRhythm(rhythmStr: string) {
+    rhythm.value = parseRhythm(rhythmStr)
     muteBeats.value = new Set()
     replay()
 }
@@ -84,10 +84,10 @@ async function setPhrase(phraseStr: string) {
     <div class="h-100 text-center d-flex flex-column justify-content-between">
         <div />
         <div>
-            <Phrases @phrase="setPhrase" />
+            <Rhythms @rhythm="setRhythm" />
         </div>
         <div>
-            <Beats :cur-beat="curBeat" :beatCount="phrase.tracks[0]?.bpb || 4" :mutes="muteBeats" />
+            <Beats :cur-beat="curBeat" :beatCount="rhythm.tracks[0]?.bpb || 4" :mutes="muteBeats" />
         </div>
         <Tempo class="py-2 mt-3" v-model:bpm="bpm" />
         <div class="py-4 bg-dark">

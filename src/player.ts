@@ -1,11 +1,11 @@
 import { Audio } from './audio'
-import { type Phrase } from './phrase'
+import { type Rhythm } from './rhythm'
 
-export function play(phrase: Phrase, bpm: number, muteBeats: Set<number>) {
+export function play(rhythm: Rhythm, bpm: number, muteBeats: Set<number>) {
     const audio = new Audio()
     const queuedBeats: { when: number, index: number }[] = []
 
-    const bpb = phrase.tracks[0]?.bpb || 4
+    const bpb = rhythm.tracks[0]?.bpb || 4
     let playing = true
     let beatTime = audio.currentTime + 0.2
     let beatCount = 0
@@ -17,7 +17,7 @@ export function play(phrase: Phrase, bpm: number, muteBeats: Set<number>) {
         const curTime = audio.currentTime
         while (beatTime < curTime + 0.2) {
             const beatDur = 60 / bpm
-            phrase.tracks.forEach(track => {
+            rhythm.tracks.forEach(track => {
                 track.beats[beatCount % track.beats.length]?.notes
                     .forEach(note => {
                         audio.play(

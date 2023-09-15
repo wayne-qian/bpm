@@ -14,11 +14,11 @@ export type Track = {
     beats: Beat[]
 }
 
-export type Phrase = {
+export type Rhythm = {
     tracks: Track[]
 }
 
-export function parseBeat(beatStr: string): Beat {
+function parseBeat(beatStr: string): Beat {
     if (!beatStr.length) {
         return { notes: [] }
     }
@@ -33,7 +33,7 @@ export function parseBeat(beatStr: string): Beat {
     return beat
 }
 
-export function parseTrack(trackStr: string): Track {
+function parseTrack(trackStr: string): Track {
     const track: Track = {
         set: '',
         bpb: 4,
@@ -79,9 +79,9 @@ export function parseTrack(trackStr: string): Track {
     return track
 }
 
-export function parsePhrase(phraseStr: string): Phrase {
+export function parseRhythm(rhythmStr: string): Rhythm {
     return {
-        tracks: phraseStr.split(/[\r\n]+/)
+        tracks: rhythmStr.split(/[\r\n]+/)
             .map(p => p.trim())
             .filter(p => !!p)
             .map(parseTrack)
