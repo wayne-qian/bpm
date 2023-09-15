@@ -83,9 +83,7 @@ async function setRhythm(rhythmStr: string) {
 <template>
     <div class="h-100 text-center d-flex flex-column justify-content-between">
         <div />
-        <div>
-            <Rhythms @rhythm="setRhythm" />
-        </div>
+        <Rhythms @rhythm="setRhythm" />
         <div>
             <Beats :cur-beat="curBeat" :beatCount="rhythm.tracks[0]?.bpb || 4" :mutes="muteBeats" />
         </div>

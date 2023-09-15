@@ -44,7 +44,7 @@ function tap() {
 <template>
     <div class="text-center" style="user-select: none;">
         <div class="text-secondary">BPM</div>
-        <div class="fw-lighter" style="font-size:7em;line-height: 1em;cursor: pointer;" @click="tap">{{ bpm }}</div>
+        <span class="fw-lighter" style="font-size:7em;line-height: 1em;cursor: pointer;" @click="tap">{{ bpm }}</span>
         <div class="mt-4">
             <div class="position-absolute w-100" :class="tapping ? '' : 'invisible'">TAP</div>
             <div class="btn-group" :class="tapping ? 'invisible' : ''">
