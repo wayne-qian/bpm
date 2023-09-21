@@ -2,7 +2,7 @@ type PlayNote = (dest: AudioNode, when: number, duration: number) => void
 
 
 function playSnare(dest: AudioNode, when: number, duration: number) {
-    duration = Math.min(0.18, duration)
+    duration = Math.min(0.15, duration)
     const ctx = dest.context
 
     const filter = ctx.createBiquadFilter()
@@ -31,7 +31,7 @@ function playSnare(dest: AudioNode, when: number, duration: number) {
     oscGain.gain.setValueAtTime(0.7, when);
     oscGain.gain.exponentialRampToValueAtTime(
         0.01,
-        when + duration / 3
+        when + duration *0.5
     );
 
     // Set up an oscillator to provide a 'snap' sound

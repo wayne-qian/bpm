@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Created with Vectornator (http://vectornator.io/) -->
-<svg stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 112 112" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg height="100%" stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 112 112" width="100%" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <defs>
 <clipPath id="TextBounds">
-<rect height="40" transform="matrix(1 -0 -0 1 2.93723 -39.282)" width="110.982" x="-2.93723" y="39.282"/>
+<rect height="55" width="110.982" x="11.0579" y="23.4964"/>
 </clipPath>
 </defs>
-<clipPath id="ArtboardFrame">
-<rect height="112" width="112" x="0" y="0"/>
-</clipPath>
-<g clip-path="url(#ArtboardFrame)" id="图层-1">
-<path d="M0 0L113.4 0L113.4 56.7L0 56.7L0 0Z" fill="#000000" fill-rule="nonzero" opacity="1" stroke="none"/>
-<path d="M0 56L113.399 56L113.399 112.688L0 112.688L0 56Z" fill="#1f1f1f" fill-rule="nonzero" opacity="1" stroke="none"/>
-<text clip-path="url(#TextBounds)" fill="#ffffff" font-family="AppleMyungjo" font-size="33" opacity="1" stroke="none" text-anchor="start" transform="matrix(1 0 0 1 -2.93723 39.282)" x="0" y="0">
-<tspan textLength="107.982" x="0" y="29">♪BPM</tspan>
-</text>
+<g id="图层-1">
+<path d="M22 6L90 6C98.8366 6 106 13.1634 106 22L106 90C106 98.8366 98.8366 106 90 106L22 106C13.1634 106 6 98.8366 6 90L6 22C6 13.1634 13.1634 6 22 6Z" fill="#000000" fill-rule="nonzero" opacity="1" stroke="none"/>
+<g fill="#ffffff" opacity="1" stroke="none">
+<path clip-path="url(#TextBounds)" d="M30.9329 49.3558C33.136 49.8714 34.8626 50.8714 36.1126 52.3558C37.3626 53.8402 37.9876 55.6058 37.9876 57.6527C37.9876 60.6527 36.8977 63.0433 34.7181 64.8246C32.5384 66.6058 29.9173 67.4964 26.8548 67.4964L17.4563 67.4964L17.4563 34.4261L26.6204 34.4261C29.8079 34.4261 32.3001 35.1253 34.097 36.5238C35.8938 37.9222 36.7923 39.8949 36.7923 42.4417C36.7923 44.0042 36.2727 45.3949 35.2337 46.6136C34.1946 47.8324 32.761 48.7152 30.9329 49.2621L30.9329 49.3558ZM21.3001 47.5746L25.8001 47.5746C30.5032 47.5746 32.8548 45.8949 32.8548 42.5355C32.8548 41.0042 32.2767 39.8285 31.1204 39.0081C29.9642 38.1878 28.2688 37.7777 26.0345 37.7777L21.3001 37.7777L21.3001 47.5746ZM21.3001 64.1449L25.6595 64.1449C28.2063 64.1449 30.2259 63.5667 31.7181 62.4105C33.2102 61.2542 33.9563 59.6683 33.9563 57.6527C33.9563 55.5121 33.222 53.8558 31.7532 52.6839C30.2845 51.5121 28.1595 50.9261 25.3782 50.9261L21.3001 50.9261L21.3001 64.1449Z"/>
+<path clip-path="url(#TextBounds)" d="M47.3626 34.4261L55.7532 34.4261C58.9251 34.4261 61.4642 35.223 63.3704 36.8167C65.2767 38.4105 66.2298 40.6058 66.2298 43.4027C66.2298 46.2152 65.2806 48.4613 63.3821 50.141C61.4837 51.8206 58.9954 52.6605 55.9173 52.6605L51.2063 52.6605L51.2063 67.4964L47.3626 67.4964L47.3626 34.4261ZM51.2063 49.3089L55.3782 49.3089C59.8938 49.3089 62.1517 47.4183 62.1517 43.6371C62.1517 41.8871 61.5384 40.473 60.3118 39.3949C59.0852 38.3167 57.5032 37.7777 55.5657 37.7777L51.2063 37.7777L51.2063 49.3089Z"/>
+<path clip-path="url(#TextBounds)" d="M95.222 67.4964L91.5188 67.4964L91.5188 39.1371L86.5267 52.7074L82.8938 52.7074L77.9017 39.1371L77.9017 67.4964L74.1985 67.4964L74.1985 34.4261L79.1907 34.4261L84.722 49.4964L90.2298 34.4261L95.222 34.4261L95.222 67.4964Z"/>
+</g>
+<path d="M17.3823 75.1464L25.3823 75.1464L25.3823 87.1464L17.3823 87.1464L17.3823 75.1464Z" fill="#92ff83" fill-rule="nonzero" opacity="1" stroke="none"/>
+<path d="M31.3823 75.1464L39.3823 75.1464L39.3823 87.1464L31.3823 87.1464L31.3823 75.1464Z" fill="#ffffff" fill-rule="nonzero" opacity="1" stroke="none"/>
+<path d="M45.3823 75.1464L53.3823 75.1464L53.3823 87.1464L45.3823 87.1464L45.3823 75.1464Z" fill="#ffffff" fill-rule="nonzero" opacity="1" stroke="none"/>
+<path d="M59.3823 75.1464L67.3823 75.1464L67.3823 87.1464L59.3823 87.1464L59.3823 75.1464Z" fill="#ffffff" fill-rule="nonzero" opacity="1" stroke="none"/>
 </g>
 </svg>
